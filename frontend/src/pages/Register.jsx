@@ -20,7 +20,7 @@ export const Registration = ()=>{
     event.preventDefault();
     await SignUp(UserData)
     .then((result)=>{
-      console.log(result.status);
+      // console.log(result.status);
       const ele= document.querySelector(".Error_Print");
       ele.textContent ="Register successfully completed";
       ele.style.color="#83ff00"

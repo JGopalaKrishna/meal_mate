@@ -1,4 +1,4 @@
-import RoutersFun from "./pages/Router";
+import RoutersFun from "./components/ProtectedRoute";
 function App() {
   return (
     <>

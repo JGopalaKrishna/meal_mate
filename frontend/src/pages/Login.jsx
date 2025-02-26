@@ -17,12 +17,13 @@ export const Login = ()=>{
     event.preventDefault();
     await LogIn(UserData)
     .then((result)=>{
-      // console.log("result",result._id);
-      localStorage.setItem("_id", result._id);
+      console.log("result",result);
+      localStorage.setItem("token",result.token);
+      localStorage.setItem("_id",result._id);
       const ele= document.querySelector(".Error_Print");
       ele.textContent ="Login successfully completed";
       ele.style.color="#83ff00"
-      setTimeout(()=>{navigation("/")})
+      setTimeout(()=>{navigation("/")},1000);
     })
     .catch((err)=>{
       console.log(err.response.data.message);

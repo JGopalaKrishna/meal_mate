@@ -6,7 +6,8 @@ import { CiLocationOn } from "react-icons/ci";
 import { MdOutlineReadMore } from "react-icons/md";
 import { IoArrowBack } from "react-icons/io5";
 import bc1 from '../assets/food_bc1.jpg';
-
+import item1 from '../../public/item1.jpg';
+import { AddCartItem_Api } from "../api/cartApi";
 
 export const CanteensPage = ()=>{
   useEffect(() => {
@@ -72,9 +73,19 @@ export const CanteensPage = ()=>{
 
 
 const Single_CanteenItems_Show = ({ItemsData,setShowItems})=>{
-  console.log(ItemsData);
+  // console.log(ItemsData);
+  const [AddedTocart,setAddedTocart] = useState(false)
+  const [Quntity,setQuntity] = useState(1)
   const canteenName = ItemsData.canteenName;
   ItemsData=ItemsData.items;
+  const ItemAddToCart = async(itemId)=>{
+    var data={itemId:itemId,quantity:Quntity};
+    const result = await AddCartItem_Api(data);
+    // console.log(result);
+    // alert("Added successfully");
+    setAddedTocart(false);
+    setQuntity(1);
+  }
   return(
     <main className="ItemsPage">
     <section className="ItemsPageHead">
@@ -89,15 +100,20 @@ const Single_CanteenItems_Show = ({ItemsData,setShowItems})=>{
     {
       ItemsData.map((data,index)=>{
         return(
-         <div className="canteen_div BounceUp" key={index}>
-          <div className="canteenImg">
-              <img src={bc1} style={{height:"100%",width:"100%"}} />
+         <div className="Item_Div BounceUp" key={index}>
+          <div className="ItemImg">
+              <img src={item1} style={{height:"100%",width:"100%"}} />
           </div>
           <div className="ItemInfo">
             <div>{data.name}</div>
             <div>{data.category}</div>
           </div>
           <div className="ItemPrice">₹{data.price}/-</div>
+          {/* <div className="ItemPrice">Quntity: <input type="number" min={1} value={Quntity} onChange={(e)=>setQuntity(e.target.value)} style={{width:"100px",fontSize:"16"}}/></div>
+          <div className="Rx3d">
+            <div id="dimension1" style={{transform: AddedTocart ? 'rotateX(0deg)' : 'rotateX(-90deg)',bottom: AddedTocart ? '0%' : '60%',}} onClick={()=>{setAddedTocart(false)}}>In Cart</div>
+            <div id="dimension2" style={{transform: AddedTocart ? 'rotateX(-90deg)' : 'rotateX(0deg)',top: AddedTocart ? '60%' : '0%',}} onClick={()=>{setAddedTocart(true);ItemAddToCart(data._id)}}>Add to Cart</div>
+           </div> */}
          </div>
         )
       })
@@ -106,3 +122,16 @@ const Single_CanteenItems_Show = ({ItemsData,setShowItems})=>{
     </main>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
